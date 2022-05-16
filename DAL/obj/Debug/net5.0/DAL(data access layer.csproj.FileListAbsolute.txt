@@ -1,0 +1,12 @@
+C:\Users\User\Documents\RestaurantApi\DAL(data access layer\bin\Debug\net5.0\DAL(data access layer.deps.json
+C:\Users\User\Documents\RestaurantApi\DAL(data access layer\bin\Debug\net5.0\DAL(data access layer.dll
+C:\Users\User\Documents\RestaurantApi\DAL(data access layer\bin\Debug\net5.0\ref\DAL(data access layer.dll
+C:\Users\User\Documents\RestaurantApi\DAL(data access layer\bin\Debug\net5.0\DAL(data access layer.pdb
+C:\Users\User\Documents\RestaurantApi\DAL(data access layer\obj\Debug\net5.0\DAL(data access layer.csproj.AssemblyReference.cache
+C:\Users\User\Documents\RestaurantApi\DAL(data access layer\obj\Debug\net5.0\DAL(data access layer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\RestaurantApi\DAL(data access layer\obj\Debug\net5.0\DAL(data access layer.AssemblyInfoInputs.cache
+C:\Users\User\Documents\RestaurantApi\DAL(data access layer\obj\Debug\net5.0\DAL(data access layer.AssemblyInfo.cs
+C:\Users\User\Documents\RestaurantApi\DAL(data access layer\obj\Debug\net5.0\DAL(data access layer.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\RestaurantApi\DAL(data access layer\obj\Debug\net5.0\DAL(data access layer.dll
+C:\Users\User\Documents\RestaurantApi\DAL(data access layer\obj\Debug\net5.0\ref\DAL(data access layer.dll
+C:\Users\User\Documents\RestaurantApi\DAL(data access layer\obj\Debug\net5.0\DAL(data access layer.pdb

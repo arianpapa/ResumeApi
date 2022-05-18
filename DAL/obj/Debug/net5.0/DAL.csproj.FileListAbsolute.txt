@@ -31,6 +31,6 @@ C:\Users\User\Documents\ResumeApi\DAL\obj\Debug\net5.0\DAL.AssemblyInfoInputs.ca
 C:\Users\User\Documents\ResumeApi\DAL\obj\Debug\net5.0\DAL.AssemblyInfo.cs
 C:\Users\User\Documents\ResumeApi\DAL\obj\Debug\net5.0\DAL.csproj.CoreCompileInputs.cache
 C:\Users\User\Documents\ResumeApi\DAL\obj\Debug\net5.0\DAL.dll
-C:\Users\User\Documents\ResumeApi\DAL\obj\Debug\net5.0\refint\DAL.dll
 C:\Users\User\Documents\ResumeApi\DAL\obj\Debug\net5.0\DAL.pdb
 C:\Users\User\Documents\ResumeApi\DAL\obj\Debug\net5.0\ref\DAL.dll
+C:\Users\User\Documents\ResumeApi\DAL\bin\Debug\net5.0\ref\DAL.dll

@@ -144,13 +144,6 @@ namespace ResumeApi.Controllers
             var appUser = await _accountManager.GetUserByIdAsync(id);
             var currentRoles = appUser != null ? (await _accountManager.GetUserRolesAsync(appUser)).ToArray() : null;
 
-            //var manageUsersPolicy =  _authorizationService.AuthorizeAsync(User, id, AccountManagementOperations.Update);
-            //var assignRolePolicy =   _authorizationService.AuthorizeAsync(User, (user.Roles, currentRoles), Policies.AssignAllowedRolesPolicy);
-
-
-            //if ((await Task.WhenAll(manageUsersPolicy, assignRolePolicy)).Any(r => !r.Succeeded))
-            //    return new ChallengeResult();
-
 
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (!(user.Id==0) && id != user.Id)

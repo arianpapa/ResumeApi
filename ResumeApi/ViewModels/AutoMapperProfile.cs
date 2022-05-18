@@ -19,6 +19,16 @@ namespace ResumeApi.ViewModels
 				.ForMember(d => d.Roles, map => map.Ignore())
 				.ForMember(d => d.Id, map => map.Condition(src => src.Id != null));
 
+			CreateMap<ForeignLanguage, ForeignLanguagePostViewModel>()
+				.ReverseMap();
+			CreateMap<ForeignLanguage, ForeignLanguagePutViewModel>()
+				.ReverseMap();
+
+			CreateMap<Person, PersonPostViewModel>()
+				.ReverseMap();
+			CreateMap<Person, PersonPutViewModel>()
+				.ReverseMap();
+
 			CreateMap<ApplicationUser, UserEditViewModel>()
 				.ForMember(d => d.Roles, map => map.Ignore());
 			CreateMap<UserEditViewModel, ApplicationUser>()

@@ -77,6 +77,43 @@ namespace ResumeApi
                 options.AddPolicy("get_one_person",
                     policy => policy.RequireClaim("permission", ApplicationPermissionCollection.GetSinglePersonInformation));
 
+
+
+                options.AddPolicy(Policies.ViewAllSkillsPolicy,
+                   policy => policy.RequireClaim("permission", ApplicationPermissionCollection.GetSingleSkillInformation));
+                options.AddPolicy(Policies.ViewAllSkillsPolicy,
+                   policy => policy.RequireClaim("permission", ApplicationPermissionCollection.GetAllSkillPermission));
+                options.AddPolicy(Policies.ManageAllSkillsPolicy,
+                    policy => policy.RequireClaim("permission", ApplicationPermissionCollection.CreateSkillPermission));
+                options.AddPolicy(Policies.ManageAllSkillsPolicy,
+                    policy => policy.RequireClaim("permission", ApplicationPermissionCollection.UpdateSkillPermission));
+                options.AddPolicy(Policies.ManageAllSkillsPolicy,
+                    policy => policy.RequireClaim("permission", ApplicationPermissionCollection.DeleteSkillPermission));
+
+                options.AddPolicy(Policies.ViewAllWorkingExperiencesPolicy,
+                   policy => policy.RequireClaim("permission", ApplicationPermissionCollection.GetSingleWorkingExperienceInformation));
+                options.AddPolicy(Policies.ViewAllWorkingExperiencesPolicy,
+                   policy => policy.RequireClaim("permission", ApplicationPermissionCollection.GetAllWorkingExperiencePermission));
+                options.AddPolicy(Policies.ManageAllWorkingExperiencesPolicy,
+                    policy => policy.RequireClaim("permission", ApplicationPermissionCollection.CreateWorkingExperiencePermission));
+                options.AddPolicy(Policies.ManageAllWorkingExperiencesPolicy,
+                    policy => policy.RequireClaim("permission", ApplicationPermissionCollection.UpdateWorkingExperiencePermission));
+                options.AddPolicy(Policies.ManageAllWorkingExperiencesPolicy,
+                    policy => policy.RequireClaim("permission", ApplicationPermissionCollection.DeleteWorkingExperiencePermission));
+
+                options.AddPolicy(Policies.ViewAllForeignLanguagesPolicy,
+                   policy => policy.RequireClaim("permission", ApplicationPermissionCollection.GetSingleForeignLanguageInformation));
+                options.AddPolicy(Policies.ViewAllForeignLanguagesPolicy,
+                   policy => policy.RequireClaim("permission", ApplicationPermissionCollection.GetAllForeignLanguagePermission));
+                options.AddPolicy(Policies.ManageAllForeignLanguagesPolicy,
+                    policy => policy.RequireClaim("permission", ApplicationPermissionCollection.CreateForeignLanguagePermission));
+                options.AddPolicy(Policies.ManageAllForeignLanguagesPolicy,
+                    policy => policy.RequireClaim("permission", ApplicationPermissionCollection.UpdateForeignLanguagePermission));
+                options.AddPolicy(Policies.ManageAllForeignLanguagesPolicy,
+                    policy => policy.RequireClaim("permission", ApplicationPermissionCollection.DeleteForeignLanguagePermission));
+
+
+
                 options.AddPolicy(Policies.ViewAllUsersPolicy,
                     policy => policy.RequireClaim("permission", ApplicationPermissionCollection.ViewAllUsersPermission));
                 options.AddPolicy(Policies.AssignAllowedRolesPolicy,

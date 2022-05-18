@@ -456,7 +456,7 @@ C:\Users\User\Documents\ResumeApi\ResumeApi\obj\Debug\net5.0\staticwebassets\Res
 C:\Users\User\Documents\ResumeApi\ResumeApi\obj\Debug\net5.0\ResumeApi.RazorTargetAssemblyInfo.cache
 C:\Users\User\Documents\ResumeApi\ResumeApi\obj\Debug\net5.0\ResumeApi.csproj.CopyComplete
 C:\Users\User\Documents\ResumeApi\ResumeApi\obj\Debug\net5.0\ResumeApi.dll
-C:\Users\User\Documents\ResumeApi\ResumeApi\obj\Debug\net5.0\refint\ResumeApi.dll
 C:\Users\User\Documents\ResumeApi\ResumeApi\obj\Debug\net5.0\ResumeApi.pdb
 C:\Users\User\Documents\ResumeApi\ResumeApi\obj\Debug\net5.0\ResumeApi.genruntimeconfig.cache
 C:\Users\User\Documents\ResumeApi\ResumeApi\obj\Debug\net5.0\ref\ResumeApi.dll
+C:\Users\User\Documents\ResumeApi\ResumeApi\bin\Debug\net5.0\ref\ResumeApi.dll

@@ -16,5 +16,18 @@ namespace ResumeApi.Helpers.Account
         public const string ManageAllRolesPolicy = "ManageAllRolesPolicy";
 
 
+        public const string ViewAllPeoplePolicy = "ViewAllPeoplePolicy";
+        public const string ManageAllPeoplePolicy = "ManageAllPeoplePolicy";
+
+        public const string ViewAllSkillsPolicy = "ViewAllSkillsPolicy";
+        public const string ManageAllSkillsPolicy = "ManageAllSkillsPolicy";
+
+        public const string ViewAllWorkingExperiencesPolicy = "ViewAllWorkingExperiencesPolicy";
+        public const string ManageAllWorkingExperiencesPolicy = "ManageAllWorkingExperiencesPolicy";
+
+        public const string ViewAllForeignLanguagesPolicy = "ViewAllForeignLanguagesPolicy";
+        public const string ManageAllForeignLanguagesPolicy = "ManageAllForeignLanguagesPolicy";
+
+
     }
 }

@@ -13,7 +13,6 @@ namespace DAL.Models
         public int PersonId { get; set; }
         public bool IsSoftSkill { get; set; }
         public int Level { get; set; }
-
         public Person Person { get; set; }
     }
 }

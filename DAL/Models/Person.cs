@@ -21,11 +21,11 @@ namespace DAL.Models
         public string City { get; set; }
         public string Country { get; set; }
         public string Adress { get; set; }
-        ICollection<Contact>Contacts { get; set; }
-        ICollection<WorkingExperience> WorkingExperiences { get; set; }
-        ICollection<Education> Educations { get; set; }
-        ICollection<Skill> Skills { get; set; }
-        ICollection<ForeignLanguage> ForeignLanguages { get; set; }
+        public virtual ICollection<Contact>Contacts { get; set; }
+        public virtual ICollection<WorkingExperience> WorkingExperiences { get; set; }
+        public virtual ICollection<Education> Educations { get; set; }
+        public virtual ICollection<Skill> Skills { get; set; }
+        public virtual ICollection<ForeignLanguage> ForeignLanguages { get; set; }
 
     }
 }

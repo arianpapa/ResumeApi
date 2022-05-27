@@ -15,7 +15,7 @@ namespace DAL.Models
         public DateTime StandartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public int PersonId { get; set; }
-        public Person Person { get; set; }
+        //public Person Person { get; set; }
 
     }
 }

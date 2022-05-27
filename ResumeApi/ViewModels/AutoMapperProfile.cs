@@ -23,11 +23,27 @@ namespace ResumeApi.ViewModels
 				.ReverseMap();
 			CreateMap<ForeignLanguage, ForeignLanguagePutViewModel>()
 				.ReverseMap();
+			CreateMap<ForeignLanguage, ForeignLanguageBaseViewModel>()
+				.ReverseMap();
+			CreateMap<ForeignLanguage, ForeignLanguageEditViewModel>()
+				.ReverseMap();
+
+			CreateMap<Skill, SkillPostViewModel>()
+				.ReverseMap();
+			CreateMap<Skill, SkillPutViewModel>()
+				.ReverseMap();
+			CreateMap<Skill, SkillBaseViewModel>()
+				.ReverseMap();
+			CreateMap<Skill, SkillEditViewModel>()
+				.ReverseMap();
 
 			CreateMap<Person, PersonPostViewModel>()
 				.ReverseMap();
 			CreateMap<Person, PersonPutViewModel>()
 				.ReverseMap();
+			CreateMap<Person, PersonGetViewModel>()
+				.ReverseMap();
+
 
 			CreateMap<ApplicationUser, UserEditViewModel>()
 				.ForMember(d => d.Roles, map => map.Ignore());

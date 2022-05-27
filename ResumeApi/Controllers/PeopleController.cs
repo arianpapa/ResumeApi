@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using ResumeApi.ViewModels;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace ResumeApi.Controllers
 {
@@ -32,16 +33,41 @@ namespace ResumeApi.Controllers
         }
 
 
-
-        [HttpGet("getAllPeople")]
+        //GetPersonById
+        [HttpGet("getPerson/{id}")]
         [Authorize(Policy = "get_list_of_persons")]
-        public IList<Person> GetPeople()
+        public async Task<ActionResult<PersonGetViewModel>> GetPerson(int id)
         {
-            var listOfPersons = _dbContext.Persons.ToList();
-            return listOfPersons;
+            try
+            {
+                var result =  _dbContext.Persons.Where(i=>i.Id==id).Include(i => i.Skills).Include(i => i.ForeignLanguages).Include(i => i.WorkingExperiences).FirstOrDefault();
+
+                if (result == null) return NotFound();
+
+                var mappPeople = _mapper.Map<PersonGetViewModel>(result);
+
+                return Ok(mappPeople);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
         }
 
 
+        //GetAllPeople
+        [HttpGet("getAllPeople")]
+        [Authorize(Policy = "get_list_of_persons")]
+        public IList<PersonGetViewModel> GetPeople()
+        {
+            var listOfPersons = _dbContext.Persons.Include(i=>i.Skills).Include(i=>i.ForeignLanguages).Include(i => i.WorkingExperiences).ToList();
+            var mappPeople = _mapper.Map<IList<PersonGetViewModel>>(listOfPersons);
+            return mappPeople;
+        }
+
+
+        //RegisterPerson
         [HttpPost("registerPerson")]
         [Authorize(Policy = "create_person")]
         public Person CreatePerson(PersonPostViewModel person)
@@ -53,31 +79,9 @@ namespace ResumeApi.Controllers
         }
 
 
+        //UpdatePersonById
         [HttpPut("updatePerson/{id}")]
         [Authorize(Policy = "update_person")]
-        //public async Task<IActionResult> ChangePerson(int id, Person person)
-        //{
-        //    var PersonDb = _dbContext.Persons.Where(p => p.Id == id).FirstOrDefault<Person>();
-
-        //    if (PersonDb == null)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    PersonDb.Adress = person.Adress;
-        //    PersonDb.City = person.City;
-        //    PersonDb.Country = person.Country;
-        //    PersonDb.DateOfBirth = person.DateOfBirth;
-        //    PersonDb.Name = person.Name;
-        //    PersonDb.Surname = person.Surname;
-        //    PersonDb.Nid = person.Nid;
-        //    PersonDb.PlaceOfBirth = person.PlaceOfBirth;
-
-        //    _dbContext.Update(PersonDb);
-
-        //    _dbContext.SaveChanges();
-        //    return Ok("Person modified successfully!");
-        //}
         public async Task<IActionResult> ChangePerson(int id, PersonPutViewModel person)
         {
             var PersonDb = _dbContext.Persons.Where(p => p.Id == id).FirstOrDefault();
@@ -95,6 +99,7 @@ namespace ResumeApi.Controllers
         }
 
 
+        //DeletePersonById
         [HttpDelete("deletePerson/{id}")]
         [Authorize(Policy = "delete_person")]
         public async Task<IActionResult> DeletePerson(int id)
@@ -111,14 +116,37 @@ namespace ResumeApi.Controllers
                 await _dbContext.SaveChangesAsync();
 
                 return Ok("Person successfully deleted!");
-
             }
             catch (Exception ex)
             {
                 throw;
             }
+        }
+
+
+        //GetSkillByPersonId
+        [HttpGet("getSkillByPersonId/{personId}")]
+        [Authorize(Policies.ViewAllSkillsPolicy)]
+        public async Task<IActionResult> GetSkills(int personId)
+        {
+            try
+            {
+                var result = _dbContext.Skills.Where(i => i.PersonId == personId).ToList();
+
+                if (result == null) return NotFound();
+
+                var mappSkill = _mapper.Map<IList<SkillEditViewModel>>(result);
+
+                return Ok(mappSkill);
+                //return result;
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
 
         }
+
 
 
         [HttpGet("getAllSkills")]
@@ -132,33 +160,29 @@ namespace ResumeApi.Controllers
 
         [HttpPost("registerSkill")]
         [Authorize(Policies.ManageAllSkillsPolicy)]
-        public Skill CreateSkill(Skill skill)
+        public Skill CreateSkill(SkillPostViewModel skill)
         {
-            _dbContext.Skills.Add(skill);
+            var mapSkills = _mapper.Map<Skill>(skill);
+            var s = _dbContext.Skills.Add(mapSkills);
+
             _dbContext.SaveChanges();
-            return skill;
+            return s.Entity;
         }
-
-
+        
+        
         [HttpPut("updateSkill/{id}")]
         [Authorize(Policies.ManageAllSkillsPolicy)]
-        public async Task<IActionResult> ChangeSkill(int id, Skill skill)
+        public async Task<IActionResult> ChangeSkill(int id, SkillPutViewModel skill)
         {
-            var SkillDb = _dbContext.Skills.Where(p => p.Id == id).FirstOrDefault<Skill>();
+            var SkillDb = _dbContext.Skills.Where(p => p.Id == id).FirstOrDefault();
 
             if (SkillDb == null)
             {
                 return BadRequest();
             }
 
-            SkillDb.Value = skill.Value;
-            SkillDb.PersonId = skill.PersonId;
-            SkillDb.IsSoftSkill = skill.IsSoftSkill;
-            SkillDb.Level = skill.Level;
-
+            _mapper.Map(skill, SkillDb);
             _dbContext.Update(SkillDb);
-
-            // _dbcontext.Entry(person).State = EntityState.Modified;
 
             _dbContext.SaveChanges();
             return Ok("Skill modified successfully!");
@@ -187,15 +211,7 @@ namespace ResumeApi.Controllers
             {
                 throw;
             }
-
         }
-
-
-
-
-
-
-
 
 
 
@@ -238,8 +254,6 @@ namespace ResumeApi.Controllers
 
             _dbContext.Update(WorkingExperienceDb);
 
-            // _dbcontext.Entry(person).State = EntityState.Modified;
-
             _dbContext.SaveChanges();
             return Ok("Skill modified successfully!");
         }
@@ -261,22 +275,41 @@ namespace ResumeApi.Controllers
                 await _dbContext.SaveChangesAsync();
 
                 return Ok("Skill successfully deleted!");
-
             }
             catch (Exception ex)
             {
                 throw;
             }
+        }
+
+
+        //GetForeignLanguageByPersonId
+        [HttpGet("getForeignLanguageByPersonId/{personId}")]
+        [Authorize(Policies.ViewAllForeignLanguagesPolicy)]
+        public async Task<IActionResult> GetForeignLanguage(int personId)
+        {
+            try
+            {
+                var result = _dbContext.ForeignLanguages.Where(i => i.PersonId == personId).ToList();
+
+                if (result == null) return NotFound();
+
+                var mappForeignLanguage = _mapper.Map<IList<ForeignLanguageEditViewModel>>(result);
+
+                return Ok(mappForeignLanguage);
+                
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
 
         }
 
 
-
-
-
-
+        //GetAllForeignLanguages
         [HttpGet("getAllForeignLanguages")]
-        //[Authorize(Policy = "get_list_of_persons")]
+        [Authorize(Policies.ViewAllForeignLanguagesPolicy)]
         public IList<ForeignLanguage> GetForeignLanguages()
         {
             var listOfForeignLanguages = _dbContext.ForeignLanguages.ToList();
@@ -284,8 +317,9 @@ namespace ResumeApi.Controllers
         }
 
 
+        //RegisterForeignLanguage
         [HttpPost("registerForeignLanguages")]
-        //[Authorize(Policy = "create_person")]
+        [Authorize(Policies.ManageAllForeignLanguagesPolicy)]
         public ForeignLanguage CreateForeignLanguage(ForeignLanguagePostViewModel foreignLanguage)
         {
             var mapForeignLanguages = _mapper.Map<ForeignLanguage>(foreignLanguage);
@@ -295,8 +329,9 @@ namespace ResumeApi.Controllers
         }
 
 
+        //UpdateForeignLanguageById
         [HttpPut("updateForeignLanguage/{id}")]
-        //[Authorize(Policy = "update_person")]
+        [Authorize(Policies.ManageAllForeignLanguagesPolicy)]
         public async Task<IActionResult> ChangeForeignLanguage(int id, ForeignLanguagePutViewModel foreignLanguage)
         {
             var ForeignLanguageDb = _dbContext.ForeignLanguages.Where(p => p.Id == id).FirstOrDefault();
@@ -307,25 +342,15 @@ namespace ResumeApi.Controllers
             }
             _mapper.Map(foreignLanguage, ForeignLanguageDb);
             _dbContext.Update(ForeignLanguageDb);
-            //ForeignLanguageDb.Language = foreignLanguage.Language;
-            //ForeignLanguageDb.Level = foreignLanguage.Level;
-            //ForeignLanguageDb.PersonId = foreignLanguage.PersonId;
-
-            //var mapForeignLanguages = _mapper.Map<ForeignLanguage>(foreignLanguage);
-            
-
-
-            //_dbContext.Update(mapForeignLanguages);
-
-            
 
             _dbContext.SaveChanges();
             return Ok("ForeignLanguage modified successfully!");
         }
 
 
+        //DeleteForeignLanguageById
         [HttpDelete("deleteForeignLanguage/{id}")]
-        //[Authorize(Policy = "delete_person")]
+        [Authorize(Policies.ManageAllForeignLanguagesPolicy)]
         public async Task<IActionResult> DeleteForeignLanguage(int id)
         {
             try
@@ -340,19 +365,12 @@ namespace ResumeApi.Controllers
                 await _dbContext.SaveChangesAsync();
 
                 return Ok("ForeignLanguage successfully deleted!");
-
             }
             catch (Exception ex)
             {
                 throw;
             }
-
         }
-
-
-
-
-
 
 
 

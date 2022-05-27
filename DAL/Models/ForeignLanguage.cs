@@ -12,6 +12,6 @@ namespace DAL.Models
         public string Language { get; set; }
         public string Level { get; set; }
         public int PersonId { get; set; }
-        public Person Person { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

@@ -39,8 +39,11 @@ namespace ResumeApi.ViewModels
     {
 
     }
-
-
-
+    
+    public class PersonGetViewModel : PersonBaseViewModel
+    {
+        public virtual ICollection<ForeignLanguageBaseViewModel> ForeignLanguages { get; set; }
+        public virtual ICollection<SkillBaseViewModel> Skills { get; set; }
+    }
 
 }
